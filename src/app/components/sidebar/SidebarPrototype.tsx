@@ -138,7 +138,7 @@ const SidebarPrototype = () => {
   };
 
   // Function to render navigation items
-  const renderNavItems = (items) => {
+  const renderNavItems = (items: { href: string; label: string; icon: React.ReactNode; badge?: number }[]) => {
     return items.map((item) => (
       <li key={item.href + '-' + item.label}>
         <Link
@@ -151,7 +151,7 @@ const SidebarPrototype = () => {
         >
           <span className="w-5 h-5">{item.icon}</span>
           <span>{item.label}</span>
-          {item.badge > 0 && (
+          {typeof item.badge === 'number' && item.badge > 0 && (
             <span className="ml-auto bg-[var(--color-primary)] text-white text-xs min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
               {item.badge}
             </span>

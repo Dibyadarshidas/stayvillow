@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from 'next/navigation';
@@ -188,7 +188,7 @@ const filterOptions = {
   rating: ["4.5+", "4.0+", "3.5+", "3.0+"]
 };
 
-export default function SearchPage() {
+function SearchPageInner() {
   const searchParams = useSearchParams();
   const [location, setLocation] = useState("");
   const [checkIn, setCheckIn] = useState("");
@@ -657,5 +657,13 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense>
+      <SearchPageInner />
+    </Suspense>
   );
 } 

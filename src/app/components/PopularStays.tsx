@@ -25,7 +25,7 @@ const stays = properties.map(property => ({
 
 export default function PopularStays() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [hoveredId, setHoveredId] = useState(null);
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
   
   const filters = ["All", "Trending", "New", "Luxury", "Unique"];
   

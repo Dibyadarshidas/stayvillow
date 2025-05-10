@@ -38,7 +38,7 @@ const virtualTours = [
 ];
 
 // Pre-load images for smoother transitions
-const preloadImages = (images) => {
+const preloadImages = (images: string[]) => {
   images.forEach((src) => {
     const img = new window.Image();
     img.src = src;
@@ -73,7 +73,7 @@ export default function VirtualTourPreview() {
   
   // Auto-rotate images for 360 effect
   useEffect(() => {
-    let intervalId;
+    let intervalId: NodeJS.Timeout | undefined;
     if (isRotating && isImagesLoaded) {
       intervalId = setInterval(() => {
         setIsTransitioning(true);
@@ -88,7 +88,7 @@ export default function VirtualTourPreview() {
     };
   }, [isRotating, activeTour.previewImages.length, isImagesLoaded]);
   
-  const handleTourSelect = (index) => {
+  const handleTourSelect = (index: number) => {
     setActiveIndex(index);
     setActiveTour(virtualTours[index]);
     setActiveImageIndex(0);
@@ -99,7 +99,7 @@ export default function VirtualTourPreview() {
     setIsRotating(!isRotating);
   };
 
-  const handleNextImage = () => {
+  const handleNextImage = (): void => {
     setIsTransitioning(true);
     setTimeout(() => {
       setActiveImageIndex((prev) => (prev + 1) % activeTour.previewImages.length);
@@ -107,7 +107,7 @@ export default function VirtualTourPreview() {
     }, 200);
   };
 
-  const handlePrevImage = () => {
+  const handlePrevImage = (): void => {
     setIsTransitioning(true);
     setTimeout(() => {
       setActiveImageIndex((prev) => (prev - 1 + activeTour.previewImages.length) % activeTour.previewImages.length);
@@ -124,7 +124,7 @@ export default function VirtualTourPreview() {
     touchEndX.current = e.touches[0].clientX;
   };
   
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (): void => {
     if (touchStartX.current - touchEndX.current > 50) {
       // Swipe left - next image
       handleNextImage();

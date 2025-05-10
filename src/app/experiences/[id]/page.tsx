@@ -159,10 +159,34 @@ const experiencesList = [
   }
 ];
 
+// Define the Experience type
+interface Experience {
+  id: number;
+  title: string;
+  description: string;
+  longDescription: string;
+  price: string;
+  duration: string;
+  rating: number;
+  reviews: number;
+  image: string;
+  gallery: string[];
+  location: string;
+  host: {
+    name: string;
+    image: string;
+    bio: string;
+  };
+  categories: string[];
+  availableDates: string[];
+  includes: string[];
+  requirements: string[];
+}
+
 export default function ExperiencePage() {
   const router = useRouter();
   const params = useParams();
-  const [experience, setExperience] = useState(null);
+  const [experience, setExperience] = useState<Experience | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState('');
   const [guests, setGuests] = useState(1);
@@ -188,6 +212,7 @@ export default function ExperiencePage() {
 
   // Handle booking
   const handleBooking = () => {
+    if (!experience) return;
     alert(`Booking ${experience.title} for ${selectedDate} with ${guests} guests`);
     // In a real app, this would navigate to a checkout page or API call
   };

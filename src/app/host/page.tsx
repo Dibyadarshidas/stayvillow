@@ -161,17 +161,35 @@ export default function HostPage() {
   ), [city, cityObj]);
 
   // Create custom DivIcons for each marker (client-only)
-  const markerIcons = useMemo(() => {
-    if (typeof window === 'undefined') return [];
+  const [markerIcons, setMarkerIcons] = useState<any[]>([]);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const L = require('leaflet');
-    return mapMarkers.map((marker) =>
-      new L.DivIcon({
-        className: 'custom-rate-icon',
-        html: `<div style='background:white;padding:4px 12px;border-radius:999px;box-shadow:0 2px 8px #0001;font-weight:600;border:1px solid #eee;display:inline-block;min-width:48px;text-align:center;'>₹${marker.rate.toLocaleString()}</div>`
-      })
+    setMarkerIcons(
+      mapMarkers.map((marker) =>
+        new L.DivIcon({
+          className: 'custom-rate-icon',
+          html: `<div style='background:white;padding:4px 12px;border-radius:999px;box-shadow:0 2px 8px #0001;font-weight:600;border:1px solid #eee;display:inline-block;min-width:48px;text-align:center;'>₹${marker.rate.toLocaleString()}</div>`
+        })
+      )
     );
   }, [mapMarkers]);
+
+  const [floatingPositions, setFloatingPositions] = useState<{x: number, y: number}[]>([]);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+    // Only run on client
+    if (typeof window !== 'undefined') {
+      const positions = Array.from({ length: 5 }).map(() => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+      }));
+      setFloatingPositions(positions);
+    }
+  }, []);
 
   useEffect(() => {
     setIsVisible(true);
@@ -249,24 +267,19 @@ export default function HostPage() {
         </motion.div>
 
         {/* Floating Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-4 h-4 bg-white/20 rounded-full"
-              initial={{ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight }}
-              animate={{
-                y: [0, -20, 0],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 3 + i,
-                repeat: Infinity,
-                delay: i * 0.5,
-              }}
-            />
-          ))}
-        </div>
+        {hasMounted && (
+          <div className="absolute inset-0 pointer-events-none">
+            {floatingPositions.map((pos, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-4 h-4 bg-white/20 rounded-full"
+                initial={{ x: pos.x, y: pos.y }}
+                animate={{ y: [0, -20, 0], opacity: [0.5, 0.8, 0.5] }}
+                transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.5 }}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Earnings Calculator Section (moved below hero) */}
@@ -323,7 +336,7 @@ export default function HostPage() {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {mapMarkers.map((marker, i) => (
+              {markerIcons.length === mapMarkers.length && mapMarkers.map((marker, i) => (
                 <Marker
                   key={i}
                   position={[marker.lat, marker.lng]}

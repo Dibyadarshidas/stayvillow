@@ -13,7 +13,7 @@ interface MapComponentProps {
 }
 
 export default function MapComponent({ title, location, lat, lng }: MapComponentProps) {
-  const [icon, setIcon] = useState(null);
+  const [icon, setIcon] = useState<L.Icon | null>(null);
   
   // Initialize Leaflet only on the client side
   useEffect(() => {
