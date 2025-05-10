@@ -64,9 +64,25 @@ const Sidebar = () => {
 
   return (
     <aside className="w-56 h-screen sidebar p-6 flex flex-col z-50">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gradient tracking-tight">Stayvillow</h1>
-        <p className="text-xs text-[var(--color-text-light)] mt-1 font-medium">Luxury Vacation Stays</p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-2xl font-bold text-gradient tracking-tight">Stayvillow</h1>
+          <p className="text-xs text-[var(--color-text-light)] mt-1 font-medium">Luxury Vacation Stays</p>
+        </div>
+        <button 
+          className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          onClick={() => {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+              sidebar.classList.remove('open');
+            }
+          }}
+          aria-label="Close menu"
+        >
+          <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
       </div>
       
       <nav className="flex-1 space-y-8">

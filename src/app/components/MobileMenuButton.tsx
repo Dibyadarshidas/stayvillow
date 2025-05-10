@@ -53,17 +53,11 @@ export default function MobileMenuButton() {
     <button 
       className="mobile-menu-button lg:hidden fixed top-4 left-4 z-50 bg-white shadow-md border border-cyan-100 p-2 rounded-lg hover:bg-gray-50 transition-colors" 
       onClick={toggleMenu}
-      aria-label={isOpen ? "Close menu" : "Open menu"}
+      aria-label="Open menu"
     >
-      {isOpen ? (
-        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      ) : (
-        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      )}
+      <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
     </button>
   );
 } 

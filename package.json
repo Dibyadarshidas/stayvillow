@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.11.1",
     "framer-motion": "^12.10.5",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.509.0",
