@@ -286,7 +286,7 @@ blockquote {
     display: block;
     position: fixed;
     top: 1rem;
-    left: 20rem;
+    left: 21rem;
     z-index: 40;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(5px);
