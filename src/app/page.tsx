@@ -12,7 +12,7 @@ import {
 } from "./data/mockData";
 
 // Transform properties for UI display
-export const popularStays = [
+const popularStays = [
   {
     id: "1",
     title: "Luxury Villa with Infinity Pool",
