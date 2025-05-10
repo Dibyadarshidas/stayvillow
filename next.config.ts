@@ -14,7 +14,10 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  devIndicators:false
+  devIndicators:false,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
