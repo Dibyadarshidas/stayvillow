@@ -11,7 +11,19 @@ const recommendationCategories = [
   { id: 'work', name: 'Work & Stay' }
 ];
 
-const recommendations = {
+type RecommendationCategory = 'trending' | 'family' | 'romantic' | 'adventure' | 'work';
+
+type RecommendationItem = {
+  id: string;
+  title: string;
+  location: string;
+  image: string;
+  priceRange: string;
+  match: number;
+  tags: string[];
+};
+
+const recommendations: Record<RecommendationCategory, RecommendationItem[]> = {
   trending: [
     {
       id: 't1',
@@ -124,7 +136,7 @@ const recommendations = {
 };
 
 export default function AiRecommendations() {
-  const [activeCategory, setActiveCategory] = useState('trending');
+  const [activeCategory, setActiveCategory] = useState<RecommendationCategory>('trending');
   const [isLoading, setIsLoading] = useState(false);
   const [userPreferences, setUserPreferences] = useState([
     'Beach destinations',
@@ -195,7 +207,7 @@ export default function AiRecommendations() {
         {recommendationCategories.map((category) => (
           <button
             key={category.id}
-            onClick={() => setActiveCategory(category.id)}
+            onClick={() => setActiveCategory(category.id as RecommendationCategory)}
             className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
               activeCategory === category.id
                 ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
