@@ -29,6 +29,18 @@ export const metadata: Metadata = {
   ...baseMetadata,
   title: "Stayvillow | Premium Vacation Rentals in India",
   description: "Book luxury villas, private pool stays, and unique getaways with Stayvillow. Discover, list, or buy your dream vacation property in India's most beautiful destinations.",
+  manifest: "/manifest.json",
+  themeColor: "#0284c7",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Stayvillow",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({
@@ -52,6 +64,12 @@ export default function RootLayout({
           }}
         />
         <link rel="sitemap" href="/sitemap.xml" type="application/xml" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0284c7" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Stayvillow" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
       </head>
       <body
